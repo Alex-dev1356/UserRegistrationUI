@@ -19,4 +19,8 @@ form = this.formBuilder.group({
   confirmPassword:['']
 });
 
+onSubmit() {
+  console.log(this.form.value);
+}
+
 }
