@@ -70,3 +70,8 @@ Go to angular.json -> find "@schematics/angular:component" -> then Add "standalo
 
 ## To add Bootstrap navigate to getbootstrap.com and get the CDN Link then paste it inside the index.html within the <head> tag 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+## To Add Google Fonts navigate to https://fonts.google.com/specimen/Inter then click on Get Font then Click on Get embeded code then paste it on the index.html inside the <head> tag
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
