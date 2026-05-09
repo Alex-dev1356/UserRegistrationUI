@@ -57,3 +57,16 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+
+## To Activate Standalone Component by default when creating a component in the terminal
+Go to angular.json -> find "@schematics/angular:component" -> then Add "standalone": true
+"@schematics/angular:component": {
+          "inlineStyle": true,
+          "style": "scss",
+          "skipTests": true,
+          "standalone": true
+        }
+
+## To add Bootstrap navigate to getbootstrap.com and get the CDN Link then paste it inside the index.html within the <head> tag 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
