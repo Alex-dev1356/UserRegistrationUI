@@ -1,6 +1,21 @@
 <form [formGroup]="form">
     <div class="mb-3">
-        <input class="form-control bg-body secondary" 
+        <input class="form-control bg-body-secondary" 
         placeholder="Full Name" formControlName="fullName">
+    </div>
+
+    <div class="mb-3">
+        <input class="form-control bg-body-secondary" 
+        placeholder="Email" formControlName="email">
+    </div>
+
+    <div class="mb-3">
+        <input type="password" class="form-control bg-body-secondary" 
+        placeholder="Password" formControlName="password">
+    </div>
+
+    <div class="mb-3">
+        <input class="form-control bg-body-secondary" 
+        placeholder="Confirm Password" formControlName="confirmPassword">
     </div>
 </form>
