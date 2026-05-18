@@ -75,3 +75,16 @@ Go to angular.json -> find "@schematics/angular:component" -> then Add "standalo
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+
+## About Validation Function 
+ValidatorFn
+A function that receives a control and synchronously returns a map of validation errors if present, otherwise null.
+
+interface ValidatorFn {
+  (control: AbstractControl<any, any>): ValidationErrors;
+}
+
+ValidationErrors
+@paramcontrolAbstractControl<any, any>
+@returnsValidationErrors
