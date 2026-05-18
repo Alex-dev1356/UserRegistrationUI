@@ -2,3 +2,11 @@
 body{
     font-family: "Inter", sans-serif;
 }
+
+// form validation
+.error-feedback {
+    font-size: 0.9rem;
+    color: red;
+    margin-top: 0.1rem !important;
+    margin: 0.3rem !important;
+}

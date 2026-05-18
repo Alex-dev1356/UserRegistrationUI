@@ -1,10 +1,11 @@
+import { CommonModule, NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-registration',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './registration.component.html',
   styles: ``
 })
@@ -12,6 +13,10 @@ export class RegistrationComponent {
 // Injecting FormBuilder to create a reactive form for user registration
 formBuilder = inject(FormBuilder);
 
+// A boolean variable to track whether the form has been submitted or not. This can be used to conditionally display error messages only after the user has attempted to submit the form. 
+isSubmitted: boolean = false;
+
+// Custom validator to check if the password and confirm password fields match
 passwordMatchValidator: ValidatorFn = (control: AbstractControl) : null => {
   const password = control.get('password') //To access the password field in the form
   const confirmPassword = control.get('confirmPassword') //To access the confirm password field in the form
@@ -34,7 +39,7 @@ form = this.formBuilder.group({
     password: ['',[
       Validators.required, 
       Validators.minLength(6),
-      Validators.pattern(/(?=.*[a-zA-Z0-9 ])/) // At least one letter, number, or space
+      Validators.pattern(/(?=.*[^a-zA-Z0-9 ])/) // At least one letter, number, or special character without space
     ]],
     confirmPassword:['']
   },  
@@ -42,7 +47,14 @@ form = this.formBuilder.group({
 );
 
 onSubmit() {
+  this.isSubmitted = true; // Set the isSubmitted flag to true when the form is submitted
   console.log(this.form.value);
+}
+
+hasDisplayableError(controlName: string) : Boolean {
+  const control = this.form.get(controlName); // To get the form control by its name
+  return Boolean(control?.invalid) && // To check if the control is invalid
+  (Boolean(control?.touched) || this.isSubmitted); // To check if the control has been touched or the form has been submitted. This ensures that error messages are only displayed after the user has interacted with the form or attempted to submit it.
 }
 
 }
