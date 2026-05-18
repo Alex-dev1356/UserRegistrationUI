@@ -88,3 +88,6 @@ interface ValidatorFn {
 ValidationErrors
 @paramcontrolAbstractControl<any, any>
 @returnsValidationErrors
+
+## Creating a new Pipe to Display one error message at a time
+ng g p shared/pipes/firstKey

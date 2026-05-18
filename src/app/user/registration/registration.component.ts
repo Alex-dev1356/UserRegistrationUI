@@ -1,11 +1,12 @@
 import { CommonModule, NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
+import { FirstKeyPipe } from '../../shared/pipes/first-key.pipe';
 
 @Component({
   selector: 'app-registration',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, FirstKeyPipe],
   templateUrl: './registration.component.html',
   styles: ``
 })

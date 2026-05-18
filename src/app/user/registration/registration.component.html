@@ -28,7 +28,19 @@
         <input type="password" class="form-control bg-body-secondary" 
         placeholder="Password" formControlName="password">
         <div class="error-feedback" *ngIf="hasDisplayableError('password')">
-            <div *ngIf="form.controls.password.hasError('required')">
+            <ng-container [ngSwitch]="form.controls.password.errors | firstKey">
+                <div *ngSwitchCase="'required'">
+                Please enter your password.
+                </div>
+                <div *ngSwitchCase="'minlength'">
+                    Password must be at least 6 characters long.
+                </div>
+                <div *ngSwitchCase="'pattern'">
+                    Password must contain at least one letter, number, or special character.
+                </div>
+            </ng-container>
+
+            <!-- <div *ngIf="form.controls.password.hasError('required')">
                 Please enter your password.
             </div>
             <div *ngIf="form.controls.password.hasError('minlength')">
@@ -36,7 +48,7 @@
             </div>
             <div *ngIf="form.controls.password.hasError('pattern')">
                 Password must contain at least one letter, number, or special character.
-            </div>
+            </div> -->
         </div>
     </div>
 
