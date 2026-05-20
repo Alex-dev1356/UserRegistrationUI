@@ -49,6 +49,14 @@ form = this.formBuilder.group({
 
 onSubmit() {
   this.isSubmitted = true; // Set the isSubmitted flag to true when the form is submitted
+
+  // Check if the form is valid before proceeding with form submission logic. This ensures that the form data is only processed if all validation rules are satisfied.
+  if(this.form.valid)
+    {
+      // Proceed with form submission logic (e.g., send data to the server, display success message, etc.)
+      console.log(this.form.value);
+    }
+
   console.log(this.form.value);
 }
 
