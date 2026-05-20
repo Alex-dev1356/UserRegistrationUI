@@ -2,6 +2,7 @@ import { CommonModule, NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { FirstKeyPipe } from '../../shared/pipes/first-key.pipe';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-registration',
@@ -13,6 +14,9 @@ import { FirstKeyPipe } from '../../shared/pipes/first-key.pipe';
 export class RegistrationComponent {
 // Injecting FormBuilder to create a reactive form for user registration
 formBuilder = inject(FormBuilder);
+
+// Injecting the AuthService to perform user registration operations such as sending the registration data to the backend API. This allows us to use the methods defined in the AuthService to handle user registration logic, such as making HTTP requests to the server and processing responses.
+private service = inject(AuthService);
 
 // A boolean variable to track whether the form has been submitted or not. This can be used to conditionally display error messages only after the user has attempted to submit the form. 
 isSubmitted: boolean = false;
@@ -55,6 +59,23 @@ onSubmit() {
     {
       // Proceed with form submission logic (e.g., send data to the server, display success message, etc.)
       console.log(this.form.value);
+
+      //Invoking the createUser method of the AuthService to send the registration data to the backend API. The form.value contains the values of all form controls, which will be sent as the request body in the POST request to the server for user registration.
+      this.service.createUser(this.form.value)
+      .subscribe({
+        next: (response: any) => {
+
+          if(response.succeeded)// If the registration was successful, then reset the form and set the isSubmitted flag back to false. This allows the user to see a success message and also allows them to submit the form again if they want to register another user.
+          {
+            console.log('User registered successfully!');
+            this.form.reset();
+            this.isSubmitted = false;
+          }
+
+          console.log('response:', response);
+        },// Handle successful registration response (e.g., display success message, navigate to login page, etc.)
+        error: (error) => console.log('error:', error) // Handle registration error response (e.g., display error message, log error, etc.)
+      });
     }
 
   console.log(this.form.value);
