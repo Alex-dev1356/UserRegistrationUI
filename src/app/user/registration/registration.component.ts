@@ -3,6 +3,7 @@ import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { FirstKeyPipe } from '../../shared/pipes/first-key.pipe';
 import { AuthService } from '../../shared/services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-registration',
@@ -17,6 +18,9 @@ formBuilder = inject(FormBuilder);
 
 // Injecting the AuthService to perform user registration operations such as sending the registration data to the backend API. This allows us to use the methods defined in the AuthService to handle user registration logic, such as making HTTP requests to the server and processing responses.
 private service = inject(AuthService);
+
+// Injecting the ToastrService to display toast notifications for various events such as success messages, error messages, etc. This allows us to use the methods provided by the ToastrService to show notifications to the user based on the outcome of their actions (e.g., successful registration, registration errors, etc.).
+private toastr = inject(ToastrService); 
 
 // A boolean variable to track whether the form has been submitted or not. This can be used to conditionally display error messages only after the user has attempted to submit the form. 
 isSubmitted: boolean = false;
@@ -70,6 +74,11 @@ onSubmit() {
             console.log('User registered successfully!');
             this.form.reset();
             this.isSubmitted = false;
+            this.toastr.success('User registered successfully!', 'Registration Successful'); // Display a success toast notification to the user using the ToastrService. This provides feedback to the user that their registration was successful.
+          }
+          else
+          {
+            console.log('reponse:', response);
           }
 
           console.log('response:', response);

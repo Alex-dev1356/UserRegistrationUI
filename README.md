@@ -91,3 +91,6 @@ ValidationErrors
 
 ## Creating a new Pipe to Display one error message at a time
 ng g p shared/pipes/firstKey
+
+## Adding and registering ngx-toastr to show the notification once the user is successfully registered
+In the terminal paste the command => npm i ngx-toastr --force and install its another dependency => npm install @angular/animations
