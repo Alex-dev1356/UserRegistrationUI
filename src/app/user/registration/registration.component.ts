@@ -76,24 +76,45 @@ onSubmit() {
             this.isSubmitted = false;
             this.toastr.success('User registered successfully!', 'Registration Successful'); // Display a success toast notification to the user using the ToastrService. This provides feedback to the user that their registration was successful.
           }
-          else
-          {
-            console.log('reponse:', response);
-          }
 
           console.log('response:', response);
         },// Handle successful registration response (e.g., display success message, navigate to login page, etc.)
-        error: (error) => console.log('error:', error) // Handle registration error response (e.g., display error message, log error, etc.)
+        error: err => {
+          if(err.error){
+            err.error.forEach((x: any) => {
+              switch(x.code){
+                //We do this because the backend API returns an error code of "DuplicateEmail" when the email provided by the user is already taken. By checking for this specific error code, we can display a more user-friendly and specific error message to the user, informing them that the email they entered is already in use and prompting them to choose a different email address for registration.
+                case 'DuplicateEmail':
+                  this.toastr.error('Email is already taken. Please choose a different email.', 'Registration Failed');
+                  break;
+                
+                //We do this because the backend API returns an error code of "DuplicateUserName" when the username provided by the user is already taken. By checking for this specific error code, we can display a more user-friendly and specific error message to the user, informing them that the username they entered is already in use and prompting them to choose a different username for registration.
+                case 'DuplicateUserName':
+                  this.toastr.error('Username is already taken. Please choose a different username.', 'Registration Failed');
+                  break;
+
+                //This displays a generic error message to the user if the registration fails for any other reason. By providing a default case in the switch statement, we can ensure that the user receives feedback about the failure of their registration attempt, even if the specific error code is not recognized or handled explicitly. This helps improve the user experience by informing them that something went wrong and encourages them to contact the developer for further assistance.
+                default:
+                  this.toastr.error('Contact the developer', 'Registration Failed'); 
+                  console.log(x);
+                  break;
+              }});
+          }
+          else{
+            console.log('error:', err)// Handle registration error response (e.g., display error message, log error, etc.)
+          }
+        }
       });
     }
 
   console.log(this.form.value);
 }
 
+
 hasDisplayableError(controlName: string) : Boolean {
   const control = this.form.get(controlName); // To get the form control by its name
   return Boolean(control?.invalid) && // To check if the control is invalid
-  (Boolean(control?.touched) || this.isSubmitted); // To check if the control has been touched or the form has been submitted. This ensures that error messages are only displayed after the user has interacted with the form or attempted to submit it.
+  (Boolean(control?.touched) || this.isSubmitted || Boolean(control?.dirty)); // To check if the control has been touched or the form has been submitted. This ensures that error messages are only displayed after the user has interacted with the form or attempted to submit it.
 }
 
 }
