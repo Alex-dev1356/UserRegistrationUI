@@ -8,7 +8,7 @@ export const routes: Routes = [
     {path:'', component:UserComponent,//removing the user path so that we can use directly the children paths for login and registratio. So insted of URL/user/signup we can use URL/signup and instead of URL/user/login we can use URL/login
         children: [
             {path: 'signup', component: RegistrationComponent}, // This child route will load the RegistrationComponent when the user navigates to '/user/signup'.
-            {path: 'login', component: LoginComponent} // This child route will load the LoginComponent when the user navigates to '/user/login'.
+            {path: 'signin', component: LoginComponent} // This child route will load the LoginComponent when the user navigates to '/user/login'.
         ]
     }
 ];
