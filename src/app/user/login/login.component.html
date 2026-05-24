@@ -9,21 +9,21 @@
     </div>
 </div>
 
-<form [formGroup]="form">
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="mb-3">
         <input class="form-control bg-body-secondary" 
         placeholder="Email" formControlName="email">
-        <!-- <div class="error-feedback" *ngIf="hasDisplayableError('fullName') && form.controls.fullName.hasError('required')">
-            Please enter your full name.
-        </div> -->
+        <div class="error-feedback" *ngIf="hasDisplayableError('email') && form.controls.email.hasError('required')">
+            Please enter your email address.
+        </div>
     </div>
 
     <div class="mb-3">
         <input class="form-control bg-body-secondary" 
         placeholder="Password" formControlName="password" type="password">
-        <!-- <div class="error-feedback" *ngIf="hasDisplayableError('fullName') && form.controls.fullName.hasError('required')">
-            Please enter your full name.
-        </div> -->
+        <div class="error-feedback" *ngIf="hasDisplayableError('password') && form.controls.password.hasError('required')">
+            Please enter your password.
+        </div>
     </div>
 
     <div class="mt-4">
