@@ -5,6 +5,7 @@ src
       │    ├── user.component.html
       │    ├── login
       │    └── registration
+      └── dashboard
       └── shared
            ├── pipes
            │    └── first-key.pipe.ts
