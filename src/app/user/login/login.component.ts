@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../shared/services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +15,16 @@ import { RouterLink } from '@angular/router';
 export class LoginComponent {
   // constructor(public formBuilder: FormBuilder) { }
 
-  formBuilder = inject(FormBuilder);
+  public formBuilder = inject(FormBuilder);
+
+  //Injecting the AuthService service into the LoginComponent using the inject function. This allows us to use the service in the component and access its methods and properties. The AuthService is responsible for handling authentication-related operations such as user registration and login, so we can use it to send login requests to the backend API when the user submits the login form.
+  private service = inject(AuthService);
+
+  //Injecting the Router Service into the LoginComponent using the inject function. This allows us to use the Router service in the component to navigate to different routes in the application. For example, after a successful login, we can use the Router service to redirect the user to the dashboard page or any other protected route that requires authentication.
+  private router = inject(Router);
+
+  //Injecting the ToasterService into the LoginComponent using the inject function. This allows us to use the Toaster service to display toast notifications in the component. We can use this service to show success messages, error messages, or any other relevant information to the user based on the outcome of the login process. For example, if the login is successful, we can show a success toast notification, and if there is an error during login (e.g., invalid credentials), we can show an error toast notification to inform the user about the issue.
+  private toaster = inject(ToastrService);
 
   isSubmitted: boolean = false;
 
@@ -31,8 +42,27 @@ export class LoginComponent {
 
   onSubmit() {
     this.isSubmitted = true; 
+    if(this.form.valid) {
+      this.service.signin(this.form.value).subscribe({
+        next: (response: any) => {
+          localStorage.setItem('token', response.token); //Storing the token in the local storage of the browser. This allows us to persist the user's authentication state across different pages and sessions. The token can be used for subsequent authenticated requests to the backend API, allowing the user to access protected resources without having to log in again until the token expires or is removed from local storage.
 
-    console.log(this.form.value);
+          //Redirecting to the dashboard page after successful login. This is done by setting the window.location.href property to the URL of the dashboard page. This will navigate the user to the dashboard page where they can access protected resources and features that require authentication.
+          this.router.navigateByUrl('/dashboard'); //Using the Router service to navigate to the dashboard page after successful login. This is a more Angular way of handling navigation compared to setting window.location.href, as it allows for better control over the routing and navigation within the Angular application.
+          
+          // console.log(response);
+        },
+        error: err => {
+          if(err.status === 400){
+            this.toaster.error('Incorrect email or password. Please try again.', 'Login Failed'); //Using the Toaster service to display an error toast notification when the login attempt fails due to incorrect email or password. This provides feedback to the user about the reason for the login failure and encourages them to try again with the correct credentials.
+          }
+          else{
+            this.toaster.error('An error occurred during login. Please try again later.', 'Login Failed'); //Using the Toaster service to display a generic error toast notification when there is an error during the login process that is not related to incorrect credentials. This provides feedback to the user about the issue and suggests trying again later, which can be helpful in cases where there might be server issues or other unexpected errors that prevent successful login.
+            console.log('error during login:\n', err);
+          }
+        }
+      })
+    }
   }
 
 }

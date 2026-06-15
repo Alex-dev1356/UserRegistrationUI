@@ -15,4 +15,9 @@ export class AuthService {
   {
     return this.http.post(this.baseURL+'/signup', fromData) //This is the URL of the endpoint where we want to send our POST request. It combines the baseURL with the specific endpoint for user registration (/signup). The fromData parameter contains the data that we want to send in the body of the POST request.
   }
+
+  //Creating a POST request to the /signin endpoint of our backend API to log in a user. The loginData parameter contains the user's login credentials (e.g., email and password). Similar to the createUser method, this method sends a POST request to the specified URL with the provided login data and returns an Observable for handling the response.
+  signin(formData: any){
+    return this.http.post(this.baseURL+'/signin', formData) //This is the URL of the endpoint where we want to send our POST request for user login. It combines the baseURL with the specific endpoint for user login (/signin). The formData parameter contains the user's login credentials that we want to send in the body of the POST request.  
+  }
 }
