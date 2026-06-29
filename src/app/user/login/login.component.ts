@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
@@ -12,7 +12,8 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './login.component.html',
   styles: ``
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
+
   // constructor(public formBuilder: FormBuilder) { }
 
   public formBuilder = inject(FormBuilder);
@@ -25,6 +26,12 @@ export class LoginComponent {
 
   //Injecting the ToasterService into the LoginComponent using the inject function. This allows us to use the Toaster service to display toast notifications in the component. We can use this service to show success messages, error messages, or any other relevant information to the user based on the outcome of the login process. For example, if the login is successful, we can show a success toast notification, and if there is an error during login (e.g., invalid credentials), we can show an error toast notification to inform the user about the issue.
   private toaster = inject(ToastrService);
+
+  ngOnInit(): void {
+    if (this.service.isLogIn()) {
+      this.router.navigateByUrl('/dashboard'); //If the user is already logged in, we navigate them to the dashboard page. This ensures that authenticated users are redirected to the appropriate page without having to go through the login process again, improving the user experience and providing seamless access to protected resources or features within the application.
+    }
+  }
 
   isSubmitted: boolean = false;
 
