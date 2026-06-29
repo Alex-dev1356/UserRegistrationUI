@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { TOKEN_KEY } from '../constants';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,14 @@ export class AuthService {
   }
 
   isLogIn(){
-    return localStorage.getItem('token') != null ? true : false; //This method checks if the user is currently logged in by looking for a token in the local storage. If a token is found, it returns true, indicating that the user is logged in; otherwise, it returns false. This is a common way to manage user authentication state in web applications.
+    return localStorage.getItem(TOKEN_KEY) != null ? true : false; //This method checks if the user is currently logged in by looking for a token in the local storage. If a token is found, it returns true, indicating that the user is logged in; otherwise, it returns false. This is a common way to manage user authentication state in web applications.
+  }
+
+  deleteToken(){
+    localStorage.removeItem(TOKEN_KEY); //This method removes the authentication token from the local storage, effectively logging the user out of the application. By deleting the token, we ensure that the user can no longer access protected resources or perform authenticated actions until they log in again and receive a new token.
+  }
+
+  saveToken(token: string){
+    localStorage.setItem(TOKEN_KEY, token); //This method saves the authentication token to the local storage. By storing the token, we can persist the user's authentication state across different pages and sessions, allowing them to access protected resources without having to log in again until the token expires or is removed from local storage.
   }
 }

@@ -1,0 +1,1 @@
+export const TOKEN_KEY = 'token'; //This constant represents the key used to store the authentication token in the local storage. By defining it as a constant, we can easily reference it throughout our application whenever we need to access or manipulate the token in local storage, ensuring consistency and reducing the risk of typos or errors when using the key.

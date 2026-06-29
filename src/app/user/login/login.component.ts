@@ -45,7 +45,12 @@ export class LoginComponent {
     if(this.form.valid) {
       this.service.signin(this.form.value).subscribe({
         next: (response: any) => {
-          localStorage.setItem('token', response.token); //Storing the token in the local storage of the browser. This allows us to persist the user's authentication state across different pages and sessions. The token can be used for subsequent authenticated requests to the backend API, allowing the user to access protected resources without having to log in again until the token expires or is removed from local storage.
+
+          // OLD CODE Before using the authentication service
+          // localStorage.setItem('token', response.token); //Storing the token in the local storage of the browser. This allows us to persist the user's authentication state across different pages and sessions. The token can be used for subsequent authenticated requests to the backend API, allowing the user to access protected resources without having to log in again until the token expires or is removed from local storage.
+
+          // New Code After using the authentication service
+          this.service.saveToken(response.token); //Using the AuthService to save the token in local storage. This encapsulates the logic for managing the token within the service, making it easier to maintain and reuse across different components of the application. By using the service, we can ensure that the token is consistently handled and stored in a secure manner, improving the overall security and maintainability of the application.
 
           //Redirecting to the dashboard page after successful login. This is done by setting the window.location.href property to the URL of the dashboard page. This will navigate the user to the dashboard page where they can access protected resources and features that require authentication.
           this.router.navigateByUrl('/dashboard'); //Using the Router service to navigate to the dashboard page after successful login. This is a more Angular way of handling navigation compared to setting window.location.href, as it allows for better control over the routing and navigation within the Angular application.
