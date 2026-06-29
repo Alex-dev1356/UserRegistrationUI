@@ -20,4 +20,8 @@ export class AuthService {
   signin(formData: any){
     return this.http.post(this.baseURL+'/signin', formData) //This is the URL of the endpoint where we want to send our POST request for user login. It combines the baseURL with the specific endpoint for user login (/signin). The formData parameter contains the user's login credentials that we want to send in the body of the POST request.  
   }
+
+  isLogIn(){
+    return localStorage.getItem('token') != null ? true : false; //This method checks if the user is currently logged in by looking for a token in the local storage. If a token is found, it returns true, indicating that the user is logged in; otherwise, it returns false. This is a common way to manage user authentication state in web applications.
+  }
 }

@@ -3,6 +3,7 @@ import { UserComponent } from './user/user.component';
 import { RegistrationComponent } from './user/registration/registration.component';
 import { LoginComponent } from './user/login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { authGuard } from './shared/auth.guard';
 
 export const routes: Routes = [
     //Setting the Default URL to the user registration page. When the application is accessed without any specific route, it will redirect to the 'user' path, which will load the UserComponent and its child routes for registration and login.
@@ -15,5 +16,5 @@ export const routes: Routes = [
             {path: 'signin', component: LoginComponent} // This child route will load the LoginComponent when the user navigates to '/user/login'.
         ]
     },
-    {path:'dashboard', component: DashboardComponent}
+    {path:'dashboard', component: DashboardComponent, canActivate: [authGuard]} //Adding the authGuard to the dashboard route to ensure that only authenticated users can access the dashboard.
 ];

@@ -94,3 +94,6 @@ ng g p shared/pipes/firstKey
 
 ## Adding and registering ngx-toastr to show the notification once the user is successfully registered
 In the terminal paste the command => npm i ngx-toastr --force and install its another dependency => npm install @angular/animations
+
+## Creating Angular Guard to Prevent the user to access localhost:4200/dashboard by directly modifying the URL
+ng g guard shared/auth
