@@ -23,7 +23,9 @@ export class AuthService {
   }
 
   isLogIn(){
-    return localStorage.getItem(TOKEN_KEY) != null ? true : false; //This method checks if the user is currently logged in by looking for a token in the local storage. If a token is found, it returns true, indicating that the user is logged in; otherwise, it returns false. This is a common way to manage user authentication state in web applications.
+    return this.getToken() != null ? true : false; //This method checks if the user is currently logged in by looking for a token in the local storage. If a token is found, it returns true, indicating that the user is logged in; otherwise, it returns false. This is a common way to manage user authentication state in web applications.
+
+    // return localStorage.getItem(TOKEN_KEY) != null ? true : false; //This method checks if the user is currently logged in by looking for a token in the local storage. If a token is found, it returns true, indicating that the user is logged in; otherwise, it returns false. This is a common way to manage user authentication state in web applications.
   }
 
   deleteToken(){
@@ -32,5 +34,10 @@ export class AuthService {
 
   saveToken(token: string){
     localStorage.setItem(TOKEN_KEY, token); //This method saves the authentication token to the local storage. By storing the token, we can persist the user's authentication state across different pages and sessions, allowing them to access protected resources without having to log in again until the token expires or is removed from local storage.
+  }
+
+  getToken()
+  {
+    return localStorage.getItem(TOKEN_KEY)
   }
 }
